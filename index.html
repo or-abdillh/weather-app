@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="https://satubstripsatu.000webhostapp.com/weather_app/manifest.json">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="icon" href="https://satubstripsatu.000webhostapp.com/weather_app/icon/favicon.ico" type="image" sizes="16x16">
+    <link rel="icon" href="https://satubstripsatu.000webhostapp.com/weather_app/icon/favicon-32x32.png" type="images" sizes="32x32">
+    
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- LATO FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+     
+     <!-- MY CSS -->
+     <style type="text/css" media="all">
+       * {
+         font-family: 'Lato', sans-serif;
+         font-size: 16px;
+         box-sizing: border-box!important;
+         user-select: none!important;
+       }
+       img[alt="www.000webhost.com"]{
+           display:none;
+       }
+       button:active {
+         transform: scale(.9)!important;
+         box-shadow: none!important;
+         border: 1px solid salmon;
+       }
+       @keyframes changeTab {
+         from {
+           opacity: 0;
+         }
+         25% {
+           opacity: .25;
+         }
+         70 % {
+           opacity: .75;
+         }
+         to {
+           opacity: 1;
+         }
+       }
+       .tab-off {
+         display: none;
+       }
+       .tab-on {
+         opacity: 0;
+         animation: changeTab .4s forwards;
+       }
+       @keyframes navOn {
+         from {
+           left: -250px;
+         }
+         to {
+           left: 0;
+         }
+       }
+       @keyframes navOff {
+         from {
+           left: 0;
+         }
+         to {
+           left: -250px;
+         }
+       }
+       .nav-open {
+         animation: navOn .3s forwards;
+       }
+       .nav-close {
+         animation: navOff .3s forwards;
+       }
+       #nav-left:active, #nav-right:active  {
+         border: 1px solid navy;
+         transform: scale(1.5);
+         opacity: .6;
+         transition: .3s;
+       }
+       @keyframes closeNav {
+         from {
+           transform: rotate(0deg);
+         }
+         to {
+           transform: rotate(90deg);
+           
+         }
+       }
+       #close-nav:active {
+         transform: scale(1.4)!important;
+         animation: closeNav .3s forwards!important;
+       }
+       #close-nav {
+         cursor: pointer;
+       }
+       .option-on {
+         opacity: 1!important;
+         transition: .3s;
+       }
+       #tab-cuaca:scrollbar {
+         display: none;
+       }
+       #tab-cuaca::-webkit-scrollbar {
+         display: none;
+       }
+       @keyframes refreshOn {
+         from {
+           top: -10%;
+           
+         }
+         to {
+           top: 15%;
+         }
+       }
+       @keyframes rotate {
+         from {
+           transform: rotate(0);
+         }
+         to {
+           transform: rotate(720deg);
+         }
+       }
+       #refresh:active {
+         border: 1px solid salmon!important;
+         box-shadow: none!important;
+         transition: .3s;
+         transform: scale(.8);
+       }
+       #refresh {
+         user-select: none;
+       }
+       .refresh-on {
+         opacity: 1;
+         animation: rotate 3s infinite;
+       }
+       .refresh-off {
+         opacity: 0;
+       }
+       #ubah-lokasi:active , #ubah-unit:active , #close-in-menu:active {
+         transition: .3s;
+         box-shadow: none!important;
+         background: salmon!important;
+         border: 1px solid salmon!important;
+       }
+     </style>
+
+    <title>Weather App</title>
+  </head>
+  <body id="" class="pt-2 container d-flex justify-content-start">
+    <div class="col-lg-4 col-md-8 col-12" style="position: relative; overflow: hidden">
+      
+    
+      <!-- LOADING TAB -->
+      <section id="loading-tab" class="">
+        <div class="container">
+          <div class="row" style="margin-top: 60%!important">
+            <div class="col">
+              <img style="display: block; margin: auto;" src="https://satubstripsatu.000webhostapp.com/weather_app/img/load.gif" width="200"/>
+              <p style="font-weight: 700" class="text-center text-muted">Tunggu sebentar</p>
+            </div>
+          </div>
+        </div>
+      </section>
+   
+     <!-- TAB 1 -->
+      <section id="tab-1" class="tab-off" style="margin-bottom: 20%; transition: .3s;">
+      
+        <section style="width: 100%; margin-top: 20%" class="p-2">
+          <img style="margin: auto; display: block;" src="https://satubstripsatu.000webhostapp.com/weather_app/img/hero.jpg" width="325"/>
+        </section>
+      
+        <section>
+          <div class="p-4">
+            <h3 class="text-center" style="font-weight: 700; color: #363636">SET LOKASI ANDA</h3>
+            <p class="text-muted text-center">
+            Bantu beritahu kami dimana lokasi anda saat ini, agar kami dapat memberikan layanan terbaik
+            </p>
+          </div>
+        </section>
+      
+        <section>
+          <div class="container">
+            <div class="row d-flex justify-content-center">
+              <div class="col-3">
+                <button class="btn btn-primary shadow" type="button" data-bs-toggle="modal" data-bs-target="#formUserLocation">Lanjut</button>
+              </div>
+              <div class="col-3">
+                <button data-bs-toggle="modal" data-bs-target="#confirmCustom" class="btn btn-danger shadow" type="button" >Keluar</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      
+      </section>
+    
+      <section>
+        <!-- Modal -->
+          <div class="modal fade" id="formUserLocation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel" style="font-weight: 700">Lokasi Anda</h5>
+                  <button id="close-modal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                
+                  <label for="dataProv" class="mb-2">Provinsi</label>
+                  <select id="dataProv" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                  
+                  </select>
+                
+                  <label for="dataKota" class="mb-2">Kota/Kabupaten</label>
+                  <select id="dataKota" class="off form-select form-select-lg mb-3" aria-label=".form-select-lg example" disabled>
+                  
+                  </select>
+                
+                  <label for="dataKec" class="mb-2">Kecamatan</label>
+                  <select id="dataKec" class="off form-select form-select-lg mb-3" aria-label=".form-select-lg example" disabled>
+                  
+                  </select>
+                
+                </div>
+                <div class="modal-footer">
+                  <button id="reset" type="button" class="btn btn-danger">Reset</button>
+                  <button id="submit" type="button" class="off btn btn-primary" data-bs-dismiss="modal" disabled>Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+    
+    
+    
+      <!-- TAB 2 -->
+      <section id="tab-2" class="tab-off p-2" style="margin-top: 20%!important; margin: auto; max-width: 95%">
+      
+        <section>
+          <img style="display: block; margin: auto" src="https://satubstripsatu.000webhostapp.com/weather_app/img/hero-2.png" width="325"/>
+        </section>
+      
+        <section>
+          <div class="p-4">
+            <h3 class="text-center" style="font-weight: 700; color: #363636">SUKSES</h3>
+            <p id="result-location" class="text-muted text-center">Lokasi anda saat ini provinsi, kota, kecamatan. Layanan kami siap untuk anda gunakan</p>
+          </div>
+        </section>
+      
+        <section>
+          <div class="row d-flex justify-content-center">
+            <div class="col-3">
+              <button id="start" style="width: 80px; height: 80px; border-radius: 50%!important; font-size: 1.1em; font-weight: 700" class="btn btn-primary shadow" type="button">Start</button>
+            </div>
+          </div>
+        </section>
+      
+      </section>
+    
+    
+      <!-- HOMEPAGE -->
+      <section id="home-page" class="tab-off mx-auto mt-5" style="max-width: 95%; margin: auto!important; position: relative">
+        <!-- STATE REFEESH -->
+        <section id="tab-refresh" class="refresh-off" style="top: 10%; position: absolute">
+          <div class="row d-flex justify-content-center mx-auto">
+            <div class="col-2">
+              <img src="https://satubstripsatu.000webhostapp.com/weather_app/img/refresh.png" style="width: 100%" />
+            </div>
+          </div>
+        </section>
+        <!-- NAV HOME PAGE -->
+        <nav>
+          <div class="row d-flex justify-content-between">
+            <div class="col-4">
+              <img id="nav-left" src="https://satubstripsatu.000webhostapp.com/weather_app/img/nav-left.png" width="40" />
+            </div>
+            <div class="col-2" style="position: relative!important;">
+              <img id="nav-right" src="https://satubstripsatu.000webhostapp.com/weather_app/img/option.png" width="40" data-click="false"/>
+              <div id="refresh" class="box bg-light shadow border text-center" style="width: 100px; height: 35px; position: absolute; bottom: -38px; right: 10px; opacity: 0">
+                <p style="color: #333333; font-size: 1.3em;">Segarkan</p>
+              </div>
+            </div>
+          </div>
+        </nav>
+      
+        <!-- MAIN CONTENT -->
+        <section style="margin-top: 20px!important;">
+          <div class="row d-flex flex-start">
+            <div class="col-12 d-flex">
+              <p id="kecamatan-user" class="mt-1" style="font-size: 1.4em; display: block; font-weight: 900; color: #333333;">Kecamatan,</p>
+              <p class="m-1" style="font-size: 1.4em; display: block; font-weight: 400; color: #4D4D4D;">indonesia</p>
+            </div>
+          </div>
+        </section>
+      
+      
+        <section style="width: 100%">
+          <div id="now-weather" class="row p-3">
+          <!-- RENDER AUTOMATIS -->
+          </div>
+        </section>
+      
+      
+        <section>
+          <div class="row p-3">
+          
+            <div class="col-4 ">
+              <h3 style="color: #333333; font-weight: 700">Hari Ini</h3>
+            </div>
+          
+            <div id="tab-cuaca" style="width: 100%; overflow-x: scroll; overflow-y: auto; display: flex" class="col-12 p-1">
+              <!-- TAB CUACA MINI -->
+              <!-- RENDER AUTOMATIS -->
+            </div>
+          </div>
+        </section>
+      
+      </section>
+    
+      <!-- MENU NAV LEFT -->
+      <nav class="mx-auto">
+          <div id="menu-left" class="box shadow px-3 pt-2 justify-content-center" style="width: 220px; height: 900px; position: fixed; top: -20px; bottom: -20px; left: -260px; background-color: #1089FF">
+            <div class="row d-flex mx-auto" style="position: relative">
+            
+              <div class="col-3 mt-4">
+                <button id="close-nav" style="position: absolute; right: 20px; top: 30px" type="button" class="btn-close" aria-label="Close"></button>
+              </div>
+                <div class="row mt-3 p-0 d-flex justify-content-center" style="max-width: 210px!important">
+                <div class="col-6">
+                  <img src="img/icon.png" style="width: 100%!important; display: block"/>
+                </div>
+              </div>
+              <div class="row mt-1">
+                <h4 class="text-center" style="font-weight: 700; color: white">Weather App</h4>
+              </div>
+              <div class="row mt-5">
+                <div class="col-12 mx-auto">
+                  <p data-status="false" id="ubah-lokasi" class="bg-primary w-100 p-2 text-center border shadow" style="font-weight: 700; color: white; display: block;" data-bs-toggle="modal" data-bs-target="#formUserLocation">Ubah Lokasi</p>
+                </div>
+              </div>
+              <div class="row mt-1">
+                <div class="col-12 mx-auto">
+                 <p data-suhu="false" id="ubah-unit" class="bg-primary w-90 p-2 text-center border shadow" style="font-weight: 700; color: white; display: block;">Ubah Unit / C</p>
+                </div>
+              </div>
+              <div class="row mt-1">
+                <div class="col-12 mx-auto">
+                 <p data-bs-toggle="modal" data-bs-target="#confirmCustom" class="bg-danger w-90 p-2 text-center border shadow" style="font-weight: 700; color: white; display: block">Keluar</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      
+      <!-- MODAL CONFIRM CUSTOM -->
+      <!-- Modal -->
+      <div class="modal fade" id="confirmCustom" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Apakah anda yakin ?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              anda akan keluar dari aplikasi jika menekan tombol YA
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="button-false" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+              <button type="button" id="button-true" class="btn btn-primary">Ya</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    
+    <!-- JQUERY AJAX -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- MY SCRIPT -->
+    <script src="https://satubstripsatu.000webhostapp.com/weather_app/main.js" type="text/javascript" charset="utf-8"></script>
+  
+  </body>
+</html>
